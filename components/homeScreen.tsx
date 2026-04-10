@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeContent from './homeContent';
@@ -7,6 +7,8 @@ import HomeContentNonAdmin from './homeContentNonAdmin';
 import PlateDetection from './plateDetection';
 import UserHistory from './userHistory';
 import { Text } from 'react-native-gesture-handler';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebaseConfig';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,6 +27,14 @@ const ProfileWrapper = ({ userData }: { userData: UserData | null }) => {
 
 const HomeScreen = ({ userData }: { userData: UserData | null }) => {
   console.log(userData?.admin)
+  const handleSignout = async () => {
+    try {
+      await signOut(auth);
+      console.log('User signed out successfully');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  }
   if (userData?.status==true) {
     if ((userData?.admin)==false) {
       return (
@@ -106,11 +116,38 @@ const HomeScreen = ({ userData }: { userData: UserData | null }) => {
     }}
   else{
     return (
-      <Text style={{ fontSize: 20, textAlign: 'center', marginTop: 50 }}>
-        Your account is not approved yet. Please contact the admin for more information.
-      </Text>
+      <View>
+        <Text style={{ fontSize: 20, textAlign: 'center', marginTop: 50 }}>
+          Your account is not approved yet. Please contact the admin for more information.
+
+        </Text>
+        <TouchableOpacity style={styles.button} onPress={handleSignout}>
+          <Text style={styles.buttonText}>Log Out</Text>
+        </TouchableOpacity>
+      </View>
     )
 };
 
 }
 export default HomeScreen;
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#00B8D4',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 16,
+    shadowColor: '#00B8D4',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: '600',
+    letterSpacing: 0.5,
+  },
+})

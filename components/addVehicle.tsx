@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert 
 import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { getAuth } from 'firebase/auth';
+import { API_ENDPOINTS } from '../config';
 const auth = getAuth();
 
 const type = [
@@ -27,7 +28,7 @@ const AddVehicle = () => {
     }
   
     try {
-      const response = await fetch(`http://192.168.1.7:8001/register-vehicle/${uid}`, {
+      const response = await fetch(API_ENDPOINTS.registerVehicle(uid!), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

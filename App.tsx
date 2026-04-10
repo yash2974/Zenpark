@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from './firebaseConfig';
+import { API_ENDPOINTS } from './config';
 import Approvals from './components/approvals';
 import Slider from './components/Slider';
 import loginScreen from './components/loginScreen';
@@ -49,7 +50,7 @@ function App(): React.JSX.Element {
       if (user) {
         setIsLoggedIn(true);
         try {
-          const response = await fetch(`http://192.168.1.7:8001/user/${user.uid}`);
+          const response = await fetch(API_ENDPOINTS.getUser(user.uid));
           const data = await response.json();
           console.log("User data fetched in App:", data);
           setUserData(data);

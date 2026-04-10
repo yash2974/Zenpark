@@ -8,6 +8,7 @@ import {
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
+import { API_ENDPOINTS } from '../config';
 
 interface PlateData {
   id: number;
@@ -24,7 +25,7 @@ export default function PlateDetection() {
   const wsRef = useRef<WebSocket | null>(null);
 
   const connectWebSocket = () => {
-    const ws = new WebSocket('ws://192.168.1.7:8002/ws/plates'); // Replace with your FastAPI IP
+    const ws = new WebSocket(API_ENDPOINTS.plateDetection);
     wsRef.current = ws;
 
     ws.onmessage = (event) => {

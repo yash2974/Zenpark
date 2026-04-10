@@ -11,6 +11,7 @@ import {
   ScrollView,
 } from "react-native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { API_ENDPOINTS } from '../config';
 
 export default function SignupScreen() {
   const [email, setEmail] = useState("");
@@ -46,7 +47,7 @@ export default function SignupScreen() {
     }
 
     try {
-      const response = await fetch("http://192.168.1.7:8001/register", {
+      const response = await fetch(API_ENDPOINTS.register, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
