@@ -1,8 +1,12 @@
 /**
  * Application Configuration
  * 
- * IMPORTANT: Update these values to match your network setup
- * Change the IP addresses to your machine's IP address on the network
+ * IMPORTANT: Environment variables are loaded from the .env file
+ * The .env file is NOT committed to version control for security
+ * 
+ * To set up your environment:
+ * 1. Copy .env.example to .env (or use the existing .env)
+ * 2. Update the IP addresses to match your network setup
  * 
  * To find your IP address:
  * - Windows: Open Command Prompt and run: ipconfig
@@ -10,14 +14,11 @@
  * - Look for IPv4 Address (e.g., 192.168.1.8)
  */
 
-// Main Backend API (Port 8001) - User & Vehicle Management
-export const API_BASE_URL = 'http://192.168.1.8:8001';
-
-// YOLO Service API (Port 8003) - Plate Detection & Parking Status
-export const YOLO_BASE_URL = 'http://192.168.1.8:8003';
-
-// WebSocket URL for live plate detection
-export const WS_BASE_URL = 'ws://192.168.1.8:8003';
+import {
+  API_BASE_URL,
+  YOLO_BASE_URL,
+  WS_BASE_URL,
+} from '@env';
 
 /**
  * API Endpoints
